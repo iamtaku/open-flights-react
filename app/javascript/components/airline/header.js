@@ -15,12 +15,29 @@ const Wrapper = styled.div`
     font-size: 56px;
   }
 `;
+const TotalReviews = styled.div`
+  font-size: 16px;
+  padding: 8px 0;
+`;
+const TotalOutOf = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 0;
+`;
 
 const Header = (props) => {
+  const { name, image_url, avg_score } = props.attributes;
+  const total = props.review.length;
   return (
     <Wrapper>
-      <h1>{props.attribute}</h1>
-      <p>This is from the header component in airline/airline✈️</p>
+      <h1>
+        {name} <img src={image_url} alt={name} />
+      </h1>
+      <div>
+        <TotalReviews>{total} User Reviews</TotalReviews>
+        <div className="starRating">{avg_score}</div>
+        <TotalOutOf>{avg_score} out of 5</TotalOutOf>
+      </div>
     </Wrapper>
   );
 };
