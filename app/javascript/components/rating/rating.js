@@ -1,5 +1,4 @@
 import React from "react";
-import "./rating.scss";
 
 const Rating = (props) => {
   const score = (props.score / 5) * 100;
