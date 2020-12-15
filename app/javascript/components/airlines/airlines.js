@@ -36,6 +36,18 @@ const Airlines = () => {
       .get("/api/v1/airlines.json")
       .then((response) => setAirlines(response.data.data))
       .catch((error) => console.log(error));
+
+    const csrfToken = document.querySelector("[name=csrf-token]").content;
+    // console.log(csrfToken);
+    const user = {
+      email: "kaho@test.com",
+      password: "password",
+    };
+    axios.defaults.headers.common["X-CSRF-Token"] = csrfToken;
+    axios
+      .post("/api/v1/auth/sign_in", user)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
     //get all airlines from api
     // use the setairlines method to update our state
   }, [airlines.length]);
