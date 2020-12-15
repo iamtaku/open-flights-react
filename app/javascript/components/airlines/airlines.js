@@ -31,7 +31,7 @@ const Airlines = () => {
         <p>Hello from the nested airlines/airlines component!</p>
       </Test>
       <LinkWrapper>
-        <Link to={`/airlines/test`}>View Another Test</Link>
+        <Link to={`/airlines/delta`}>View Another Test</Link>
       </LinkWrapper>
     </>
   );
