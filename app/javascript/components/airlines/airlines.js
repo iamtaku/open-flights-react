@@ -1,39 +1,62 @@
-import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import AirlineGridItem from "./gridItem";
 
-const Test = styled.div`
-  padding: 16px;
-  background-color: #000;
-  font-size: 48px;
-  color: #fff;
+const Home = styled.div`
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
-const LinkWrapper = styled.div`
-  margin: 30px 0 20px 0;
-  height: 50px;
-
-  a {
-    color: #fff;
-    background: #000;
-    border-radius: 4px;
-    padding: 8px 16px;
-    border: 1px solid #000;
-    width: 100%;
-    text-decoration: none;
+const Header = styled.header`
+  padding: 100px 100px 10px 100px;
+  h1 {
+    font-size: 42px;
   }
 `;
 
+const SubHeader = styled.div`
+  font-weight: 300;
+  font-size: 26px;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+`;
+
 const Airlines = () => {
+  const [airlines, setAirlines] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/airlines.json")
+      .then((response) => setAirlines(response.data.data))
+      .catch((error) => console.log(error));
+    //get all airlines from api
+    // use the setairlines method to update our state
+  }, [airlines.length]);
+  // console.log(airlines);
+  const grid = airlines.map((item) => {
+    return (
+      <AirlineGridItem
+        key={item.attributes.name}
+        attributes={item.attributes}
+      />
+    );
+  });
+
   return (
-    <>
-      <Test>
-        <p>Hello from the nested airlines/airlines component!</p>
-      </Test>
-      <LinkWrapper>
-        <Link to={`/airlines/delta`}>View Another Test</Link>
-      </LinkWrapper>
-    </>
+    <Home>
+      <Header>
+        <h1>Open Flights</h1>
+        <SubHeader>Honest reviews for shitty airlines</SubHeader>
+      </Header>
+      <Grid>{grid}</Grid>
+    </Home>
   );
 };
 
