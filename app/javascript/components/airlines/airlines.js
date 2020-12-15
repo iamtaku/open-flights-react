@@ -36,6 +36,10 @@ const Airlines = () => {
       .get("/api/v1/airlines.json")
       .then((response) => setAirlines(response.data.data))
       .catch((error) => console.log(error));
+    axios
+      .post("/api/v1/auth/sign_in")
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
     //get all airlines from api
     // use the setairlines method to update our state
   }, [airlines.length]);
